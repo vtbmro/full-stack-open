@@ -27,28 +27,33 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-
-  const onGoodClick = () => {
-    console.log("button clicked");
-    console.log(`Good before: ${good}`);
-    setGood(good + 1)
-    console.log(`Good after: ${good}`);
-  }
+  const [total, setTotal] = useState(0)
   
+  const onGoodClick = () => {
+    const updatedGood = good + 1 
+    setGood(updatedGood)
+    const updateTotal = total + 1
+    setTotal(updateTotal)
+  }
+
   const onNeutralClick = () => {
-    console.log("button clicked");
-    console.log(`Neutral before: ${neutral}`);
-    setNeutral(neutral + 1)
-    console.log(`Neutral after: ${neutral}`);
+    const updatedNeutral = neutral + 1 
+    setNeutral(updatedNeutral)
+    const updateTotal = total + 1
+    setTotal(updateTotal)
   }
 
   const onBadClick = () => {
-    console.log("button clicked");
-    console.log(`Bad before: ${bad}`);
-    setBad(bad + 1)
-    console.log(`bad after: ${bad}`);
+    const updatedBad = bad + 1 
+    setBad(updatedBad)
+    const updateTotal = total + 1
+    setTotal(updateTotal)
   }
 
+  const average = ((good * 1) + (neutral * 0) + (bad * -1)) / total
+
+  const percentagePositive = `${(100 * good) / total} %`
+  
   return (
     <div>
       <Header text="give feedback"/>
@@ -59,6 +64,9 @@ const App = () => {
       <Statistics text="good" number={good} />
       <Statistics text="neutral" number={neutral} />
       <Statistics text="bad" number={bad} />
+      <Statistics text="total" number={total} />
+      <Statistics text="average" number={average} />
+      <Statistics text="positive" number={percentagePositive}/>
     </div>
   )
 }
