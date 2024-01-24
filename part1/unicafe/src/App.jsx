@@ -12,14 +12,17 @@ const Header = (props) => (
   </h1>
 )
 
-const Statistics = (props) => (
+const Values = (props) => (
   <p>
     {props.text} {props.number}
   </p>
 )
 
-
-
+const Statistics = (props) => (
+  <p>
+    {props.text} {props.number}
+  </p>
+)
 
 
 const App = () => {
@@ -61,10 +64,10 @@ const App = () => {
       <Button text="neutral" function={onNeutralClick}/>
       <Button text="bad" function={onBadClick}/>
       <Header text="statistics"/>
-      <Statistics text="good" number={good} />
-      <Statistics text="neutral" number={neutral} />
-      <Statistics text="bad" number={bad} />
-      <Statistics text="total" number={total} />
+      <Values text="good" number={good} />
+      <Values text="neutral" number={neutral} />
+      <Values text="bad" number={bad} />
+      <Values text="total" number={total} />
       <Statistics text="average" number={average} />
       <Statistics text="positive" number={percentagePositive}/>
     </div>
