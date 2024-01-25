@@ -19,11 +19,15 @@ const Values = (props) => (
 )
 
 const Statistics = (props) => (
-  <p>
-    {props.text} {props.number}
-  </p>
+  <div>
+    <Values text="good" number={props.good} />
+    <Values text="neutral" number={props.neutral} />
+    <Values text="bad" number={props.bad} />
+    <Values text="total" number={props.total} />
+    <Values text="average" number={props.average} />
+    <Values text="positive" number={props.percentagePositive}/>
+  </div>
 )
-
 
 const App = () => {
   // save clicks of each button to its own state
@@ -54,22 +58,19 @@ const App = () => {
   }
 
   const average = ((good * 1) + (neutral * 0) + (bad * -1)) / total
-
   const percentagePositive = `${(100 * good) / total} %`
   
   return (
     <div>
       <Header text="give feedback"/>
+      
       <Button text="good" function={onGoodClick}/>
       <Button text="neutral" function={onNeutralClick}/>
       <Button text="bad" function={onBadClick}/>
+
       <Header text="statistics"/>
-      <Values text="good" number={good} />
-      <Values text="neutral" number={neutral} />
-      <Values text="bad" number={bad} />
-      <Values text="total" number={total} />
-      <Statistics text="average" number={average} />
-      <Statistics text="positive" number={percentagePositive}/>
+      <Statistics good={good} bad={bad} neutral={neutral} total={total} average={average} percentagePositive={percentagePositive}  />
+
     </div>
   )
 }
