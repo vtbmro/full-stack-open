@@ -12,7 +12,7 @@ const Header = (props) => (
   </h1>
 )
 
-const Values = (props) => (
+const StatisticLine = (props) => (
   <p>
     {props.text} {props.number}
   </p>
@@ -27,12 +27,12 @@ const Statistics = (props) => {
   }else{
     return(
     <div>
-      <Values text="good" number={props.good} />
-      <Values text="neutral" number={props.neutral} />
-      <Values text="bad" number={props.bad} />
-      <Values text="total" number={props.total} />
-      <Values text="average" number={props.average} />
-      <Values text="positive" number={props.percentagePositive}/>
+      <StatisticLine text="good" number={props.good} />
+      <StatisticLine text="neutral" number={props.neutral} />
+      <StatisticLine text="bad" number={props.bad} />
+      <StatisticLine text="total" number={props.total} />
+      <StatisticLine text="average" number={props.average} />
+      <StatisticLine text="positive" number={props.percentagePositive}/>
     </div>)
   }
 }
