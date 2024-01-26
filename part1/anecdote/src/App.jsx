@@ -14,6 +14,7 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState([0, 0, 0, 0, 0, 0, 0, 0])
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -24,14 +25,23 @@ const App = () => {
     setSelected(random_number)
   }
 
+  const handleVote = (index) =>{
+    const nextPoints = points.map((c, i) => {
+      if (i === index) {
+        return c + 1;
+      } else {
+        return c;
+      }
+    });
+    setPoints(nextPoints);
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
-
-      <button onClick={random_anecdote}>
-        next anecdote
-      </button>
-  
+      <p>{anecdotes[selected]}</p>
+      <p>has {points[selected]} votes</p>
+      <button onClick={() => handleVote(selected)}>vote</button>
+      <button onClick={random_anecdote}>next anecdote</button>
     </div>
   )  
 }
