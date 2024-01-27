@@ -1,6 +1,14 @@
 const Header = ({ course }) => <h1>{course}</h1>
 
-const Total = ({ sum }) => <p>Number of exercises {sum}</p>
+const sumOfParts = ( array ) => {
+  let sum = 0;
+  for (let i = 0; i < array.length; i++){
+    sum += array[i].exercises
+  }
+  return sum
+}
+
+const Total = ({ parts }) => <strong>Number of exercises {sumOfParts(parts)}</strong>
 
 const Part = ({ part }) => 
   <>
@@ -17,6 +25,7 @@ const Course = ( props ) =>
 <div>
   <Header course={props.course.name}></Header>
   <Content parts={props.course.parts}></Content>
+  <Total parts={props.course.parts}/> 
 </div>
 
 const App = () => {
@@ -40,8 +49,8 @@ const App = () => {
         id: 3
       },
       {
-        name: "Another part",
-        exercises: 3,
+        name: "Redux",
+        exercises: 11,
         id: 4
       }
     ]
