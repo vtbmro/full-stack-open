@@ -1,11 +1,11 @@
 const Header = ({ course }) => <h1>{course}</h1>
 
 const sumOfParts = ( array ) => {
-  let sum = 0;
-  for (let i = 0; i < array.length; i++){
-    sum += array[i].exercises
-  }
-  return sum
+  const total = array.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.exercises,
+    0,
+  );
+  return total
 }
 
 const Total = ({ parts }) => <strong>Number of exercises {sumOfParts(parts)}</strong>
