@@ -2,36 +2,30 @@ import { useState } from 'react'
 
 const Names = (props) => {
   let names = props.names
-
   return names.map((person) => <li key ={person.id}>{person.name}</li>);
 }
-
-
 
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', id: 0 }
   ]) 
   const [newName, setNewName] = useState('')
-
   const handleNameChange = (event) => {
-    
     setNewName(event.target.value)
   }
 
   const addName = (event) => {
     event.preventDefault()
-
-    const nameObject = {
-      name: newName,
-      id: persons.length += 1
+    if (persons.filter((name) => name.name == newName) != []){
+      alert(`${newName} is already added to phonebook `)
+    }else{
+      const nameObject = {
+        name: newName,
+        id: persons.length += 1
+      }
+      setPersons(persons.concat(nameObject))
+      setNewName("")
     }
-    
-    setPersons(persons.concat(nameObject))
-
-    console.log(persons)
-
-    setNewName("")
   }
 
   return (
