@@ -11,11 +11,6 @@ const Names = (props) => {
   }else{
     return names.map((person) => <li key ={person.id}>{person.name} {person.number}</li>);
   }
-  
-
-  
-  
-  
 }
 
 const App = () => {
