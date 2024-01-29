@@ -1,11 +1,35 @@
 import { useState } from 'react'
 
-const Names = (props) => {
+
+// Components 
+
+const Filter = (props) => {
+  return (<>filter shown with<input onChange={props.change} value={props.value}/></>)
+}
+
+const PersonForm = (props) => {
+  return (
+  <div>
+    <form>
+      <div>
+        name: <input onChange={props.handleNameChange} value={props.newName}/>
+      </div>
+      <div>
+        number: <input onChange={props.handleNumerChange} value={props.newNumber}/>
+        </div>
+    <div>
+      <button type="submit" onClick={props.addToPhonebook}>add</button>
+    </div>
+  </form></div>)
+}
+
+
+
+const Persons = (props) => {
   let names = props.names
   
   if (props.filter != ""){
     var PATTERN = new RegExp(`${props.filter}`, "i")
-    console.log(PATTERN)
     let newArray = names.filter(function (number) { return PATTERN.test(number.name); });
     return newArray.map((person) => <li key ={person.id}>{person.name} {person.number}</li>);
   }else{
@@ -15,10 +39,10 @@ const Names = (props) => {
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
+    { name: 'Arto Hellas', number: '040-123456', id: 0 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 1 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 2 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 3 }
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -56,25 +80,20 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h2>Phonebook</h2>
-        <div>filter shown with<input onChange={handleFilterChange} /></div>
-      <form>
-        <h2>add a new</h2>
-        <div>
-          name: <input onChange={handleNameChange} value={newName}/>
-        </div>
-        <div>
-          number: <input onChange={handleNumerChange} value={newNumber}/>
-          </div>
-        <div>
-          <button type="submit" onClick={addToPhonebook}>add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
-      <Names names ={persons} filter={newFilter}/>
-      <div>debug: {newFilter}</div>
-    </div>
+  <div>
+    <h2>Phonebook</h2>
+    <Filter change={handleFilterChange} value={newFilter}/>
+
+  
+    <h3>add a new</h3>
+    <PersonForm handleNameChange={handleNameChange} newName={newName} handleNumerChange={handleNumerChange}
+    newNumber={newNumber} addToPhonebook={addToPhonebook}/>
+    
+    
+    <h2>Numbers</h2>
+    <Persons names ={persons} filter={newFilter}/>
+  
+  </div>
   )
 }
 
