@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-// Components 
+import personsService from "./services/persons"
 
 const Filter = (props) => {
   return (<>filter shown with<input onChange={props.change} value={props.value}/></>)
@@ -75,9 +75,14 @@ const App = () => {
         number: newNumber
       }
 
-      setPersons(persons.concat(nameObject))
-      setNewName("")
-      setNewNumber("")
+      personsService.create(nameObject)
+      personsService.getAll()
+      .then(response => 
+      {
+        setPersons(response.data)
+      })
+      
+
     }
   }
 
