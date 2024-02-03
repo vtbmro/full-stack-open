@@ -30,9 +30,11 @@ const Persons = (props) => {
     let newArray = names.filter(function (number) { return PATTERN.test(number.name); });
     return newArray.map((person) => <li key ={person.id}>{person.name} {person.number}</li>);
   }else{
-    return names.map((person) => <li key ={person.id}>{person.name} {person.number}<button onClick={() => personsService.deletePerson(person.id)}>delete</button></li>);
+    return names.map((person) => <li key ={person.id}>{person.name} {person.number}<button onClick={() => {props.delete_person(person.id)} }>delete</button></li>);
   }
 }
+
+
 
 const App = () => {
 
@@ -68,7 +70,32 @@ useEffect(() => {
     
   }, [])  
 
-// Add to phonebook except if already in phonebook (working as intended)
+  
+
+  function delete_person(id){
+    if (window.confirm("Do you want to delete this number?")){
+      personsService.deletePerson(id)
+      .then(console.log("removed succesfully"))
+      // Had to do this so persons updates after deleting  element
+      setTimeout(function(){
+      personsService
+        .getAll()
+        .then(response => {
+          console.log(response.data)
+          setPersons(response.data)
+        })
+    }, 100);
+        
+      
+    }
+    
+    
+
+    
+    
+  }
+
+// Add to phonebook except if already in phonebook
   const addToPhonebook = (event) => {
     event.preventDefault()
     if (persons.filter((name) => name.name == newName).length != 0){
@@ -102,7 +129,7 @@ useEffect(() => {
     newNumber={newNumber} addToPhonebook={addToPhonebook}/>
     
     <h2>Numbers</h2>
-    <Persons names ={persons} filter={newFilter}/>
+    <Persons names ={persons} filter={newFilter} setPersons_function = {setPersons} delete_person={delete_person}/>
     
    
   </div>
