@@ -2,11 +2,9 @@
   "persons": [
     {
       "name": "Fernando Alonso",
-      "number":"12-43-234345",
+      "number": "12-43-234345",
       "id": "0"
-      
-    }
-    ,
+    },
     {
       "name": "Dan Abramov",
       "number": "12-43-234345",

@@ -81,39 +81,51 @@ useEffect(() => {
       personsService
         .getAll()
         .then(response => {
-          console.log(response.data)
+          
           setPersons(response.data)
         })
-    }, 100);
-        
-      
-    }
-    
-    
+      }, 100);
 
-    
-    
+    }
   }
 
 // Add to phonebook except if already in phonebook
   const addToPhonebook = (event) => {
     event.preventDefault()
-    if (persons.filter((name) => name.name == newName).length != 0){
-      alert(`${newName} is already added to phonebook.`)
-
-    }else{
-      const nameObject = {
-        name: newName,
-        id: `${persons.length}`,
-        number: newNumber
+    
+    for(let i = 0; i < persons.length; i++)
+    {
+      if(newName == persons[i].name)
+      {
+        if (window.confirm(`${persons[i].name} is already in phonebook, do you want to replace the number?`)){
+          personsService.updateNumber(persons[i].id, newNumber, persons[i])
+          setTimeout(function(){
+            personsService
+              .getAll()
+              .then(response => {
+                
+                setPersons(response.data)
+              })
+            }, 100);
+          return 0
+        }
+        
       }
-      personsService.create(nameObject)
-      personsService
-        .getAll()
-        .then(response => {
-          setPersons(response.data)
-        })
     }
+
+    const nameObject = {
+      name: newName,
+      id: `${persons.length}`,
+      number: newNumber
+    }
+    personsService.create(nameObject)
+    personsService
+      .getAll()
+      .then(response => {
+        setPersons(response.data)
+      })
+  
+    
   }
   // Add to phonebook except if already in phonebook
 
